@@ -13,6 +13,7 @@ const SnakeGameBoard = () => {
   const [direction, setDirection] = useState("RIGHT");
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   const startGameAgain = () => {
     setSnake(initialPosition);
@@ -30,6 +31,10 @@ const SnakeGameBoard = () => {
     } while (U.isPositionOnSnake(newFood, snake));
     setFood(newFood);
   };
+
+  useEffect(() => {
+    localStorage.setItem("highScore", JSON.stringify(highScore));
+  }, [highScore]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -60,6 +65,11 @@ const SnakeGameBoard = () => {
     // rules to check
     if (U.isOutOfBoardBoundaries(newHead) || U.isEatingItSelf(newHead, snake)) {
       setIsGameOver(true);
+      const hightScoreValue = localStorage.getItem("highScore");
+      if (score > parseInt(hightScoreValue)) {
+        localStorage.setItem("highScore", JSON.stringify(score));
+        setHighScore(score);
+      }
 
       return; // game is over
     }
@@ -80,6 +90,7 @@ const SnakeGameBoard = () => {
   return (
     <div className="game">
       <div>Score: {score}</div>
+      <div>High Score: {highScore}</div>
       <div className="board">
         {Array.from({ length: 15 * 15 }).map((_, index) => (
           <div
