@@ -92,16 +92,19 @@ const SnakeGameBoard = () => {
     <div className="game">
       <div>Score: {score}</div>
       <div>High Score: {highScore}</div>
-      <select
-        name="speed"
-        id="speed"
-        styles={{ width: "200px" }}
-        onChange={(e) => setSpeed(e.target.value)}
-      >
-        <option value="normal">Normal</option>
-        <option value="double">Double</option>
-        <option value="triple">Triple</option>
-      </select>
+      <div>
+        <label>Speed: </label>
+        <select
+          name="speed"
+          id="speed"
+          onChange={(e) => setSpeed(e.target.value)}
+        >
+          <option value="normal">Normal</option>
+          <option value="double">Double</option>
+          <option value="triple">Triple</option>
+        </select>
+      </div>
+      <br />
       <div className="board">
         {Array.from({ length: 15 * 15 }).map((_, index) => (
           <div
