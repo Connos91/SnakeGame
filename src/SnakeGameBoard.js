@@ -14,6 +14,7 @@ const SnakeGameBoard = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [speed, setSpeed] = useState("normal");
 
   const startGameAgain = () => {
     setSnake(initialPosition);
@@ -52,11 +53,11 @@ const SnakeGameBoard = () => {
   // Snake movement logic
   useEffect(() => {
     if (isGameOver) return;
-
-    const interval = setInterval(startSnakeMovement, 200);
+    const intervalTime = U.intervalSpeedTime(speed);
+    const interval = setInterval(startSnakeMovement, intervalTime);
 
     return () => clearInterval(interval);
-  }, [direction, isGameOver, food, score, snake]);
+  }, [direction, isGameOver, food, score, snake, speed]);
 
   const startSnakeMovement = () => {
     // real time snake head position
@@ -91,6 +92,16 @@ const SnakeGameBoard = () => {
     <div className="game">
       <div>Score: {score}</div>
       <div>High Score: {highScore}</div>
+      <select
+        name="speed"
+        id="speed"
+        styles={{ width: "200px" }}
+        onChange={(e) => setSpeed(e.target.value)}
+      >
+        <option value="normal">Normal</option>
+        <option value="double">Double</option>
+        <option value="triple">Triple</option>
+      </select>
       <div className="board">
         {Array.from({ length: 15 * 15 }).map((_, index) => (
           <div

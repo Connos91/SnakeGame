@@ -47,6 +47,21 @@ export const calcMoveSnakeHead = (currentHead, direction) => {
   return newPositionSnakeHead;
 };
 
+export const intervalSpeedTime = (speed) => {
+  let intervalTime;
+  switch (speed) {
+    case "double":
+      intervalTime = 160;
+      break;
+    case "triple":
+      intervalTime = 66;
+      break;
+    default:
+      intervalTime = 200;
+  }
+  return intervalTime;
+};
+
 export const isOutOfBoardBoundaries = (snakeHead) => {
   // check if is x and y is less than zero and greater than 15 to exit the game
   return (
