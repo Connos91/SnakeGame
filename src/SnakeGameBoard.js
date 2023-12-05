@@ -126,7 +126,7 @@ const SnakeGameBoard = () => {
           />
         ))}
       </div>
-      {isGameOver && "Game over. Please press enter to start again"}
+      {isGameOver && "Game over. Please press space to start again"}
     </div>
   );
 };
